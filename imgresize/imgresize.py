@@ -8,8 +8,7 @@
 
 #
 
-
-# TODO check entered values are numbers (floats)
+# TODO make sure entered values are numbers (floats)
 
 import math
 
@@ -47,10 +46,10 @@ height = float(input("h: "))
 
 print("Leave one of the following values blank (simply press enter)")
 
-new_width, new_height = newdimensions()
+new_w, new_h = newdimensions()
 
-while new_width == "" and new_height == "":
+while new_w == "" and new_h == "":
     # prompt for desired new width / height
     # and calculate new width / height based on user input
-    new_width, new_height = newdimensions()
- 
+    new_w, new_h = newdimensions()
+    
