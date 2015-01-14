@@ -27,7 +27,7 @@ def newdimensions():
 
 
     """ calculate new width or height depending on which
-        new dimension was provided by the user """"
+        new dimension was provided by the user """
     
     # print out warning if user provided no values  
     if w == "" and h == "":        
