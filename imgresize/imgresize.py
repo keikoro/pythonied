@@ -13,15 +13,21 @@
 import math
 
 def newdimensions():
+    """ Calculate new width / height of an image based on
+        its current width and height, and one new value
+        (keeping intact its aspect ratio). """
+    # prompt for desired new width / height
     w = input("New w: ")
     h = input("New h: ")
+    # convert str input to floats
     if w:
         w = float(w)     
     if h:
         h = float(h)          
 
-    # calculate new width or height depending on which
-    # new dimension was provided by the user
+
+    """ calculate new width or height depending on which
+        new dimension was provided by the user """"
     
     # print out warning if user provided no values  
     if w == "" and h == "":        
@@ -46,10 +52,9 @@ height = float(input("h: "))
 
 print("Leave one of the following values blank (simply press enter)")
 
+# run the function once
 new_w, new_h = newdimensions()
 
+# run the function again for as long as only one new value was entered
 while new_w == "" and new_h == "":
-    # prompt for desired new width / height
-    # and calculate new width / height based on user input
     new_w, new_h = newdimensions()
-    
