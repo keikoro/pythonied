@@ -9,9 +9,8 @@ Copyright (c) 2015 K Kollmann <code∆k.kollmann·moe>
 License: http://opensource.org/licenses/MIT The MIT License (MIT)
 '''
 
-# TODO make sure entered values are numbers (floats)
-
 import math
+import sys
 
 def newdimensions():
     ''' Calculate new width / height of an image based on
@@ -46,19 +45,49 @@ def newdimensions():
         h = ""
     return(w, h)
 
+def calculate(w,h):
+    ''' Calculate the missing dimension of an image based on its current
+        width, height and new measurement for a third dimension.
+    '''
+    try:
+        float(w)
+        float(h)
+    except:
+        # try:
+        #     float(w)
+        # except:
+        #     if w == None:
+        #         print("w is none")
+        #         return 0
+        #         exctype, value = sys.exc_info()[:2]
+        #         sys.exit((exctype, value))
+        #     else:
+        #         print("something else")
+        # try:
+        #     float(h)
+        # except:
+        #     if h == None:
+        #         print("h is none")
+        #     exctype, value = sys.exc_info()[:2]
+        #     sys.exit((exctype, value))
+        # print("exiting")
+        exctype, value = sys.exc_info()[:2]
+        sys.exit((exctype, value))
+        # sys.exit("You need to enter valid numbers for calculation new image dimensions...")
+
+    # while True:
+    print("Input (only) one new dimension:")
+    new_w, new_h = calculate(input("w: "), input("h: "))
+
+    #     print("New width: {}\nnew height: {}" .format(new_w, new_h))
+    #     break
+
+    return new_w, new_h
 
 if __name__ == "__main__":
 
-    # prompt for current width and height of image
-    print("Please enter the dimensions of your image:")
-    width = float(input("w: "))
-    height = float(input("h: "))
-
-    print("Leave one of the following values blank (simply press enter)")
-
-    # run the function once
-    new_w, new_h = newdimensions()
-
-    # run the function again for as long as only one new value was entered
-    while new_w == "" and new_h == "":
-        new_w, new_h = newdimensions()
+    while True:
+        print("Current dimensions of your image:")
+        new_w, new_h = calculate(input("w: "), input("h: "))
+        print("New width: {}\nnew height: {}" .format(new_w, new_h))
+        break
