@@ -14,9 +14,10 @@ License: http://opensource.org/licenses/MIT The MIT License (MIT)
 import math
 
 def newdimensions():
-    """ Calculate new width / height of an image based on
+    ''' Calculate new width / height of an image based on
         its current width and height, and one new value
-        (keeping intact its aspect ratio). """
+        (keeping intact its aspect ratio).
+    '''
     # prompt for desired new width / height
     w = input("New w: ")
     h = input("New h: ")
@@ -26,9 +27,8 @@ def newdimensions():
     if h:
         h = float(h)
 
-
-    """ calculate new width or height depending on which
-        new dimension was provided by the user """
+    # calculate new width or height
+    # depending on which new dimension was provided by the user
 
     # print out warning if user provided no values
     if w == "" and h == "":
@@ -46,16 +46,19 @@ def newdimensions():
         h = ""
     return(w, h)
 
-# prompt for current width and height of image
-print("Please enter the dimensions of your image:")
-width = float(input("w: "))
-height = float(input("h: "))
 
-print("Leave one of the following values blank (simply press enter)")
+if __name__ == "__main__":
 
-# run the function once
-new_w, new_h = newdimensions()
+    # prompt for current width and height of image
+    print("Please enter the dimensions of your image:")
+    width = float(input("w: "))
+    height = float(input("h: "))
 
-# run the function again for as long as only one new value was entered
-while new_w == "" and new_h == "":
+    print("Leave one of the following values blank (simply press enter)")
+
+    # run the function once
     new_w, new_h = newdimensions()
+
+    # run the function again for as long as only one new value was entered
+    while new_w == "" and new_h == "":
+        new_w, new_h = newdimensions()
