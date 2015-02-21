@@ -13,8 +13,8 @@ import math
 import sys
 
 def calculate_newdimension(w,h):
-    ''' Calculate the missing dimension of an image based on its current
-        width, height and new measurement for a third dimension.
+    ''' Recalculate the dimensions of an image based on
+        current width, current height, and either a new width or height.
     '''
     global old_w
     global old_h
