@@ -16,16 +16,33 @@ def calculate_newdimension(w,h):
     ''' Calculate the missing dimension of an image based on its current
         width, height and new measurement for a third dimension.
     '''
+    global old_w
+    global old_h
     try:
         float(w)
         float(h)
-    except:
-        sys.exit("There was at least one invalid value.")
+    except ValueError:
+        if not old_w and not old_h:
+            print("There was at least one invalid value.")
+            return None, None
+        else:
+            print("2nd loop -- do stuff here ") #debug
+            return w, h
+    else:
+        if not old_w and not old_h:
+            old_w = w
+            old_h = h
 
-    return w, h
+    while True:
+        print("Input new value of (only) one of the dimensions:")
+        new_w, new_h = calculate_newdimension(input("new w: "), input("new h: "))
+        return new_w, new_h
+        break
+
+old_w = None
+old_h = None
 
 if __name__ == "__main__":
-
     while True:
         print("Current dimensions of your image:")
         new_w, new_h = calculate_newdimension(input("w: "), input("h: "))
