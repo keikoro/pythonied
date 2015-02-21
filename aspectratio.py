@@ -26,9 +26,11 @@ def calculate_newdimension(w,h):
             print("There was at least one invalid value.")
             return None, None
         else:
+            # analyse new value(s) provided
             print("2nd loop -- do stuff here ") #debug
             return w, h
     else:
+        # set variables for original width and height
         if not old_w and not old_h:
             old_w = w
             old_h = h
