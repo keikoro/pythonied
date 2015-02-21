@@ -53,41 +53,46 @@ def calculate_newdimension(w,h):
         float(w)
         float(h)
     except:
-        # try:
-        #     float(w)
-        # except:
-        #     if w == None:
-        #         print("w is none")
-        #         return 0
-        #         exctype, value = sys.exc_info()[:2]
-        #         sys.exit((exctype, value))
-        #     else:
-        #         print("something else")
-        # try:
-        #     float(h)
-        # except:
-        #     if h == None:
-        #         print("h is none")
-        #     exctype, value = sys.exc_info()[:2]
-        #     sys.exit((exctype, value))
-        # print("exiting")
-        exctype, value = sys.exc_info()[:2]
-        sys.exit((exctype, value))
-        # sys.exit("You need to enter valid numbers for calculation new image dimensions...")
+        try:
+            float(w)
+        except ValueError as e:
+            if w == '':
+                return w, h
+            else:
+                print(e)
+        except:
+            # some other error
+            exctype, value = sys.exc_info()[:2]
+            sys.exit((exctype, value))
+        try:
+            float(h)
+        except ValueError as e:
+            if h == '':
+                return w, h
+                pass
+            else:
+                print(e)
+        except:
+            # some other error
+            exctype, value = sys.exc_info()[:2]
+            sys.exit((exctype, value))
+        sys.exit("You need to enter valid numbers for calculation new image dimensions...")
 
     # while True:
     print("Input (only) one new dimension:")
-    new_w, new_h = calculate_newdimension(input("w: "), input("h: "))
+    new_w, new_h = calculate_newdimension(input("new w: "), input("new h: "))
+    print("new w: {}, new h: {}" .format(new_w, new_h)) # debug
 
-    #     print("New width: {}\nnew height: {}" .format(new_w, new_h))
-    #     break
+    # not numbers; calculations based on strings
+    eins = 5 * new_w
+    zwei = 4 * new_h
 
-    return new_w, new_h
+    return eins, zwei
 
 if __name__ == "__main__":
 
     while True:
         print("Current dimensions of your image:")
         new_w, new_h = calculate_newdimension(input("w: "), input("h: "))
-        print("New width: {}\nnew height: {}" .format(new_w, new_h))
+        print("new width: {}\nnew height: {}" .format(new_w, new_h))
         break
