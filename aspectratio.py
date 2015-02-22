@@ -13,6 +13,9 @@ import math
 import sys
 
 def recalculate_dimensions(old_w, old_h, w=0, h=0):
+    ''' Recalculate the dimensions of an image based on
+        current width, current height, and either new width or height.
+    '''
     new_w = w
     new_h = h
 
@@ -28,8 +31,8 @@ def recalculate_dimensions(old_w, old_h, w=0, h=0):
     return new_w, new_h
 
 def provide_dimensions(w,h):
-    ''' recalculate_dimensions the dimensions of an image based on
-        current width, current height, and either a new width or height.
+    ''' Validate user input of the original width and height of an image
+        as well as (only) one new value for one of its dimensions (w or h).
     '''
     global old_w
     global old_h
@@ -106,4 +109,3 @@ if __name__ == "__main__":
                 break
     except KeyboardInterrupt:
         sys.exit("\nProgram aborted by user.")
-
