@@ -99,7 +99,7 @@ if __name__ == "__main__":
             new_w, new_h = provide_dimensions(input("w: "), input("h: "))
             if new_w is not None:
                 print("-----")
-                print("new width: {}\nnew height: {}" .format(new_w, new_h))
+                print("new width: {}\nnew height: {}" .format(round(new_w,2), round(new_h,2)))
                 break
     except KeyboardInterrupt:
         sys.exit("\nProgram aborted by user.")
