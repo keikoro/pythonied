@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 '''
-A \nProgram to (re)calculate an image's dimensions
+A Python3 program to (re)calculate an image's dimensions
 when one of its sides is changed in size.
 
 Copyright (c) 2015 K Kollmann <code∆k.kollmann·moe>
-License: http://opensource.org/licenses/MIT The MIT License (MIT)
+Licence: http://opensource.org/licenses/MIT The MIT License (MIT)
 '''
 
 import math
