@@ -3,7 +3,7 @@
 
 '''
 A Python3 program to (re)calculate an image's dimensions
-when one of its sides is changed in size.
+when one of its sides is changed in size (preserving aspect ratio).
 
 Copyright (c) 2015 K Kollmann <code∆k.kollmann·moe>
 Licence: http://opensource.org/licenses/MIT The MIT License (MIT)
@@ -55,7 +55,8 @@ def provide_dimensions(w,h):
                     # try-except-else
                     else:
                         # width is empty
-                        new_w, new_h = recalculate_dimensions(old_w, old_h, None, float(h))
+                        new_w, new_h = recalculate_dimensions(old_w,
+                                            old_h, None, float(h))
                         return new_w, new_h
             except KeyboardInterrupt:
                 sys.exit("\nProgram aborted by user.")
@@ -66,7 +67,8 @@ def provide_dimensions(w,h):
                 except ValueError:
                     if h == '':
                         # height is empty
-                        new_w, new_h = recalculate_dimensions(old_w, old_h, float(w), None)
+                        new_w, new_h = recalculate_dimensions(old_w,
+                                            old_h, float(w), None)
                         return new_w, new_h
                 except KeyboardInterrupt:
                     sys.exit("\nProgram aborted by user.")
@@ -99,7 +101,8 @@ if __name__ == "__main__":
             new_w, new_h = provide_dimensions(input("w: "), input("h: "))
             if new_w is not None:
                 print("-----")
-                print("new width: {}\nnew height: {}" .format(round(new_w,2), round(new_h,2)))
+                print("new width: {}\nnew height: {}"
+                        .format(round(new_w,2), round(new_h,2)))
                 break
     except KeyboardInterrupt:
         sys.exit("\nProgram aborted by user.")
