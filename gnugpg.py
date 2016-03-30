@@ -5,8 +5,7 @@ import gnupg
 
 # check for existence of GnuPG on local system
 try:
-    # gpg = gnupg.GPG(homedir='/Users/Kay/.gnupg', verbose='True')
-    gpg = gnupg.GPG(verbose='True')
+    gpg = gnupg.GPG(binary='/usr/local/bin/gpg2', homedir='/Users/Kay/.gnupg' , verbose=True)
     gpg.encoding = 'ascii'
     print(gpg)
     # input_data = gpg.gen_key_input(key_type='RSA',
