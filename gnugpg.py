@@ -21,4 +21,5 @@ except RuntimeError as err:
     print("You need to download and install GnuPG before "
           "you can run this programm. \n"
           "See https://www.gnupg.org/download/ for more information.")
+    exit(1)
 
