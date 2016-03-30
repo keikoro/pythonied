@@ -22,3 +22,4 @@ except Exception as err:
                     'with title \\\"Timelogger script failed!\\\" "',
                     shell=True)
     logger.error(err)
+    exit(1)
