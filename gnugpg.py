@@ -1,10 +1,11 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import gnupg as gnupg
+import gnupg
 
 # check for existence of GnuPG on local system
 try:
+    # gpg = gnupg.GPG(homedir='/Users/Kay/.gnupg', verbose='True')
     gpg = gnupg.GPG(verbose='True')
     gpg.encoding = 'ascii'
     print(gpg)
