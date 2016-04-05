@@ -1,24 +1,39 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
+# using python-gnupg
+# https://pypi.python.org/pypi/python-gnupg
+# https://pythonhosted.org/python-gnupg/
 import gnupg
+from os.path import expanduser, join, isdir, exists
+from os import access, W_OK, X_OK
 
-# check for existence of GnuPG on local system
-try:
-    gpg = gnupg.GPG(binary='/usr/local/bin/gpg2', homedir='/Users/Kay/.gnupg' , verbose=True)
-    gpg.encoding = 'ascii'
-    print(gpg)
-    # input_data = gpg.gen_key_input(key_type='RSA',
-    #                               key_length=1024, name_real='Test name')
-    # key = gpg.gen_key(input_data)
-    # print(key)
-    public_keys = gpg.list_keys()
-    print(public_keys)
+def main():
+    # set the home directory to ~/.gnupg
+    dir = join(expanduser('~'), '.gnupg')
 
-except RuntimeError as err:
-    print(err)
-    print("You need to download and install GnuPG before "
-          "you can run this programm. \n"
-          "See https://www.gnupg.org/download/ for more information.")
-    exit(1)
+    # check if gnupg directory is writeable/executable
+    if (access(dir, W_OK | X_OK)):
 
+        # check for existence of GnuPG on local system
+        try:
+            gpg = gnupg.GPG(gnupghome=dir, gpgbinary='/usr/local/bin/gpg2', verbose=True)
+            print(gpg.gpgbinary)
+            # public_keys = gpg.list_keys()
+            # print(public_keys)
+
+        except RuntimeError as err:
+            print(err)
+            print("You need to download and install GnuPG before "
+                  "you can run this programm. \n"
+                  "See https://www.gnupg.org/download/ for more information.")
+            exit(1)
+
+    else:
+        print("Sorry, but the directory provided for "
+              "GnuPG keyrings is not writeable.")
+
+
+if __name__ == "__main__":
+    main()
