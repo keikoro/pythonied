@@ -1,7 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
 # using python-gnupg
 # https://pypi.python.org/pypi/python-gnupg
 # https://pythonhosted.org/python-gnupg/
@@ -22,22 +21,16 @@ def main():
             gpg = gnupg.GPG(gnupghome=dir, verbose=True)
             # debug
             print(gpg.gpgbinary)
-            # public_keys = gpg.list_keys()
-            # print(public_keys)
         except OSError as err:
             try:
                 gpg = gnupg.GPG(gnupghome=dir, gpgbinary='/usr/local/bin/gpg2', verbose=True)
                 # debug
                 print(gpg.gpgbinary)
-                # public_keys = gpg.list_keys()
-                # print(public_keys)
             except OSError as err:
                 try:
                     gpg = gnupg.GPG(gnupghome=dir, gpgbinary='/usr/local/bin/gpg', verbose=True)
                     # debug
                     print(gpg.gpgbinary)
-                    # public_keys = gpg.list_keys()
-                    # print(public_keys)
                 except RuntimeError as err:
                     print(err)
                     print("You need to download and install GnuPG before "
