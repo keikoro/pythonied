@@ -17,19 +17,33 @@ def main():
     if (access(dir, W_OK | X_OK)):
 
         # check for existence of GnuPG on local system
+        # check: without binary -> gpg2 -> gpg
         try:
-            gpg = gnupg.GPG(gnupghome=dir, gpgbinary='/usr/local/bin/gpg2', verbose=True)
+            gpg = gnupg.GPG(gnupghome=dir, verbose=True)
+            # debug
             print(gpg.gpgbinary)
             # public_keys = gpg.list_keys()
             # print(public_keys)
-
-        except RuntimeError as err:
-            print(err)
-            print("You need to download and install GnuPG before "
-                  "you can run this programm. \n"
-                  "See https://www.gnupg.org/download/ for more information.")
-            exit(1)
-
+        except OSError as err:
+            try:
+                gpg = gnupg.GPG(gnupghome=dir, gpgbinary='/usr/local/bin/gpg2', verbose=True)
+                # debug
+                print(gpg.gpgbinary)
+                # public_keys = gpg.list_keys()
+                # print(public_keys)
+            except OSError as err:
+                try:
+                    gpg = gnupg.GPG(gnupghome=dir, gpgbinary='/usr/local/bin/gpg', verbose=True)
+                    # debug
+                    print(gpg.gpgbinary)
+                    # public_keys = gpg.list_keys()
+                    # print(public_keys)
+                except RuntimeError as err:
+                    print(err)
+                    print("You need to download and install GnuPG before "
+                          "you can run this programm. \n"
+                          "See https://www.gnupg.org/download/ for more information.")
+                    exit(1)
     else:
         print("Sorry, but the directory provided for "
               "GnuPG keyrings is not writeable.")
