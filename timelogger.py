@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import tl_config as tlconf
+import timelogger_config as tlconf
 import logging
 import time
 from os.path import expanduser

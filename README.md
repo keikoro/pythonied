@@ -2,7 +2,7 @@
 
 A collection of short and simple Python programs.
 
-### [aspectratio](aspectratio.py)
+### [aspectratio](aspectratio/aspectratio.py)
 Python3 command line script to calculate the missing dimension of an image when changing its width or height so its aspect ratio is kept intact.  
 
 Useful when you want to resize an image but don't want to consult fancy image-editing software.
