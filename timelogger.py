@@ -15,7 +15,7 @@ logging.basicConfig(filename='error.log', level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 
 try:
-    this_file = open(tlconf.user_dir + "logger.txt", 'a')
+    this_file = open(tlconf.user_dir + tlconf.log_file, 'a')
     this_file.write("logged: " + rn + " (home: " + home + ")\n")
 except Exception as err:
     subprocess.call('osascript -e "display notification \\\"$(date)\n' + err + '\\\" '
