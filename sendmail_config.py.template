@@ -1,0 +1,10 @@
+# Path to email message to be sent
+MSG = "smtp_message.txt"
+
+# SMTP data
+SERVER = ""
+USER = ""
+RECIPIENT = ""
+PORT =
+
+SENDER = USER

@@ -1,0 +1,9 @@
+Sending e-mail with Python
+Hi there,
+
+This is an e-mail sent using Python.
+
+I hope it works and doesn't land in your spam folder, but one can never be sure about that, right?
+
+Best,
+Me
