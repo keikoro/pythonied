@@ -1,5 +1,5 @@
 # Path to email message to be sent
-MSG = "smtp_message.txt"
+MSG = "sendmail_message.txt"
 
 # SMTP data
 SERVER = ""
