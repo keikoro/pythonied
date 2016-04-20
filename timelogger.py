@@ -18,7 +18,8 @@ try:
     this_file = open(tlconf.user_dir + tlconf.log_file, 'a')
     this_file.write("logged: " + rn + " (home: " + home + ")\n")
 except Exception as err:
-    subprocess.call('osascript -e "display notification \\\"$(date)\n' + err + '\\\" '
+    subprocess.call('osascript -e "display notification '
+                    '\\\"$(date)\n' + str(err) + '\\\" '
                     'with title \\\"Timelogger script failed!\\\" "',
                     shell=True)
     logger.error(err)
