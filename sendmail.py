@@ -1,12 +1,13 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sendmail_config as config
-from smtplib import SMTP, SMTP_SSL, SMTPException, SMTPAuthenticationError, \
+import getpass
+from email.mime.text import MIMEText
+from smtplib import SMTP, SMTP_SSL, SMTPAuthenticationError, \
     SMTPNotSupportedError, SMTPConnectError
 from ssl import SSLError
-from email.mime.text import MIMEText
-import getpass
+
+import sendmail_config as config
 
 
 def main():
