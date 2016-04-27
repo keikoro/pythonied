@@ -11,6 +11,7 @@
 # Files - general
 **.log**
 **config**
+**test**
 !**template**
 **.txt**
 **test**
