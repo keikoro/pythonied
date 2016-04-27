@@ -1,0 +1,8 @@
+from os.path import expanduser, join
+
+# set the home directory to ~/.gnupg
+GPGDIR = join(expanduser('~'), '.gnupg')
+
+# key generation algorithm and key length
+GPGTYPE = "RSA"
+GPGKEYLENGTH = 4096
