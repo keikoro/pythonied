@@ -42,7 +42,10 @@ def main():
     # debug
     print(server)
 
-    userpass = getpass.getpass()
+    if config.PASS:
+        userpass = config.PASS
+    else:
+        userpass = getpass.getpass()
 
     try:
         if port == 587:
