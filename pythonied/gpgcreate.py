@@ -101,7 +101,7 @@ def main():
 
     # HANDLE USER INPUT
     # user can list all available keys on the system
-    # and create new keys using RSA with a key length of 4096
+    # and create new keys using the type & key length specified in gpg_config
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawTextHelpFormatter,
         description="Sign e-mail messages using GnuPG.",
@@ -109,11 +109,12 @@ def main():
                "move around your mouse pointer or perform some other action\n"
                "on your machine.")
     parser.add_argument('-n', '--new', nargs=2, metavar=('NAME', 'EMAIL'),
-                        help="Create a new GPG key using type RSA and "
+                        help="Create a new GPG key using type {} and "
                              "key length\n"
-                             "of 4096. You will have to provide a name "
+                             "of {}. You will have to provide a name "
                              "and e-mail\n"
-                             "address for which this key should be created.")
+                             "address for which this key should be created."
+                                .format(alg, keylength))
     parser.add_argument('-l', '--list', action='store_true',
                         help="list all known GPG keys.")
     args = parser.parse_args()
