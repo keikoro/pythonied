@@ -1,13 +1,12 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import sendmail_config as config
 import getpass
 from email.mime.text import MIMEText
 from smtplib import SMTP, SMTP_SSL, SMTPAuthenticationError, \
     SMTPNotSupportedError, SMTPConnectError
 from ssl import SSLError
-
-import sendmail_config as config
 
 
 def main():
@@ -16,6 +15,7 @@ def main():
     """
     # ---VARS---
     timeout = 10
+    recipient = ''
 
     # read message data from file
     msg_file = config.MSG
@@ -46,6 +46,14 @@ def main():
         userpass = config.PASS
     else:
         userpass = getpass.getpass()
+
+    if config.RECIPIENT:
+        recipient = config.RECIPIENT
+    else:
+        recipient = input("Who do you want to send your e-mail to? ")
+
+    # debug
+    print("Recipient: {}".format(recipient))
 
     try:
         if config.SEC == 'STARTTLS':
@@ -98,7 +106,7 @@ def main():
         exit(1)
 
     try:
-        conn.sendmail(config.SENDER, config.RECIPIENT, msg.as_string())
+        conn.sendmail(config.SENDER, recipient, msg.as_string())
         print("Email sent!")
     except Exception as err:
         print("Could not send e-mail.")
