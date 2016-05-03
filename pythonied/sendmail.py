@@ -1,5 +1,11 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# Script for sending e-mail.
+#
+# Depends on: sendmail_config.py
+# where variables for server, sender, recipient
+# and message to be sent are stored.
 
 import sendmail_config as config
 import getpass
