@@ -48,14 +48,14 @@ def main():
         userpass = getpass.getpass()
 
     try:
-        if port == 587:
+        if config.SEC == 'STARTTLS':
             # debug
-            # print("no SSL")
+            # print("with STARTTLS")
             conn = SMTP(server, port, timeout=timeout)
             # conn.set_debuglevel(True)
             conn.set_debuglevel(False)
             conn.starttls()
-        elif port == 465:
+        elif config.SEC == 'SSL':
             # debug
             # print("with SSL")
             conn = SMTP_SSL(server, port, timeout=timeout)
