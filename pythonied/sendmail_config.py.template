@@ -2,8 +2,9 @@
 MSG = 'sendmail_message.txt'
 
 # SMTP data
-# use STARTTLS or SSL for SEC variable
-# PASS is optional – if not used, the user is prompted for the password
+# use STARTTLS or SSL for SEC variable.
+# PASS and RECIPIENT are optional: if not used, the user
+# is prompted for the password and/or the recipient's e-mail address
 SERVER = ''
 USER = ''
 # PASS = ''
