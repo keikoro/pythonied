@@ -1,10 +1,15 @@
 # Path to email message to be sent
-MSG = "sendmail_message.txt"
+MSG = 'sendmail_message.txt'
 
 # SMTP data
-SERVER = ""
-USER = ""
-RECIPIENT = ""
+# use STARTTLS or SSL for SEC variable
+# PASS is optional – if not used, the user is prompted for the password
+SERVER = ''
+USER = ''
+# PASS = ''
+RECIPIENT = ''
+SEC = ''
 PORT =
 
+# SEND/RECEIVE
 SENDER = USER
