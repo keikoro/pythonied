@@ -1,2 +1,5 @@
 # list of directories in which to search for files to be renamed
 DIRS = []
+
+# file types to look for
+FTYPES = []
