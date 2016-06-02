@@ -23,13 +23,13 @@ def main():
     Main function.
     """
     # ---VARS---
-    filetypes = ('mpg', 'mpeg', 'avi', 'mkv', 'mp4', 'srt', 'idx', 'sub')
-    search_dirs = config.DIRS
+    filetypes = config.FTYPES # list
+    search_dirs = config.DIRS # list
 
     files = []
 
     for this_dir in search_dirs:
-        files.extend(find_files_bytype(this_dir, filetypes))
+        files.extend(find_files_bytype(this_dir, tuple(filetypes)))
 
     print(files)
 
