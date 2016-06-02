@@ -1,5 +1,8 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
+#
+# Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
+
 
 import timelogger_config as tlconf
 import logging
