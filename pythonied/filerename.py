@@ -3,7 +3,7 @@
 #
 # Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
 #
-# Find files by file type
+# Rename video and audio files.
 
 
 import filerename_config as config
