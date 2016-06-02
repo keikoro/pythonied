@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
+#
+# Rename video and audio files.
+
 
 import av_filerename_config as config
 import os
