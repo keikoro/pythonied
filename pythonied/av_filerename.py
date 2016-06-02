@@ -10,6 +10,14 @@ import av_filerename_config as config
 import os
 
 
+def find_files_bytype(this_dir, filetypes):
+    file_list = []
+    for startdir, subdirs, filenames in os.walk(this_dir):
+        for file in filenames:
+            if file.endswith(filetypes):
+                file_list.append(file)
+    return file_list
+
 def main():
     """
     Main function.
@@ -21,10 +29,7 @@ def main():
     files = []
 
     for this_dir in search_dirs:
-        for startdir, subdirs, filenames in os.walk(this_dir):
-            for file in filenames:
-                if file.endswith(filetypes):
-                    files.append(file)
+        files.extend(find_files_bytype(this_dir, filetypes))
 
     print(files)
 
