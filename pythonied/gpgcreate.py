@@ -5,11 +5,11 @@
 # - creating a local directory for storing/managing GPG keys
 # - creating new GPG keys (using a name and e-mail address)
 #
-# Depends on: gpg_config.py
+# Depends on: gpg_conf.py
 # where variables for the directory path, the encryption algorithm
 # and the key strenght are stored.
 
-import gpg_config as config
+import config as conf
 # using python-gnupg
 # https://pypi.python.org/pypi/python-gnupg
 # https://pythonhosted.org/python-gnupg/
@@ -93,15 +93,15 @@ def main():
     Main function.
     """
     # ---VARS---
-    gpgdir = config.GPGDIR
-    alg = config.GPGTYPE
-    keylength = config.GPGKEYLENGTH
+    gpgdir = conf.GPGDIR
+    alg = conf.GPGTYPE
+    keylength = conf.GPGKEYLENGTH
     keylist = False
     new = False
 
     # HANDLE USER INPUT
     # user can list all available keys on the system
-    # and create new keys using the type & key length specified in gpg_config
+    # and create new keys using the type & key length specified in gpg_conf
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawTextHelpFormatter,
         description="Sign e-mail messages using GnuPG.",

@@ -6,7 +6,7 @@
 # Rename video and audio files.
 
 
-import filerename_config as config
+import config as conf
 import os
 import re
 
@@ -61,8 +61,8 @@ def main():
     Main function.
     """
     # ---VARS---
-    filetypes = config.FTYPES  # list
-    search_dirs = config.DIRS  # list
+    filetypes = conf.FTYPES  # list
+    search_dirs = conf.DIRS  # list
 
     files = {}
 

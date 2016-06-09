@@ -3,11 +3,11 @@
 #
 # Script for sending e-mail.
 #
-# Depends on: sendmail_config.py
+# Depends on: sendmail_conf.py
 # where variables for server, sender, recipient
 # and message to be sent are stored.
 
-import sendmail_config as config
+import config as conf
 import getpass
 from email.mime.text import MIMEText
 from smtplib import SMTP, SMTP_SSL, SMTPAuthenticationError, \
@@ -24,7 +24,7 @@ def main():
     recipient = ''
 
     # read message data from file
-    msg_file = config.MSG
+    msg_file = conf.MSG
     with open(msg_file, mode='r') as m:
         read_msg = m.read()
         full_msg = read_msg.split('\n', 1)
@@ -40,21 +40,21 @@ def main():
     # define parts of the e-mail to be sent
     msg = MIMEText(content, text_type)
     msg['Subject'] = subject
-    msg['From'] = config.SENDER
+    msg['From'] = conf.SENDER
 
     # try to establish connection to server
-    server = config.SERVER
-    port = config.PORT
+    server = conf.SERVER
+    port = conf.PORT
     # debug
     print(server)
 
-    if config.PASS:
-        userpass = config.PASS
+    if conf.PASS:
+        userpass = conf.PASS
     else:
         userpass = getpass.getpass()
 
-    if config.RECIPIENT:
-        recipient = config.RECIPIENT
+    if conf.RECIPIENT:
+        recipient = conf.RECIPIENT
     else:
         recipient = input("Who do you want to send your e-mail to? ")
 
@@ -62,14 +62,14 @@ def main():
     print("Recipient: {}".format(recipient))
 
     try:
-        if config.SEC == 'STARTTLS':
+        if conf.SEC == 'STARTTLS':
             # debug
             # print("with STARTTLS")
             conn = SMTP(server, port, timeout=timeout)
             # conn.set_debuglevel(True)
             conn.set_debuglevel(False)
             conn.starttls()
-        elif config.SEC == 'SSL':
+        elif conf.SEC == 'SSL':
             # debug
             # print("with SSL")
             conn = SMTP_SSL(server, port, timeout=timeout)
@@ -104,7 +104,7 @@ def main():
     print(ehlo)
 
     try:
-        conn.login(config.USER, userpass)
+        conn.login(conf.USER, userpass)
         print("Login successful!")
     except Exception as err:
         print("Could not log in.")
@@ -112,7 +112,7 @@ def main():
         exit(1)
 
     try:
-        conn.sendmail(config.SENDER, recipient, msg.as_string())
+        conn.sendmail(conf.SENDER, recipient, msg.as_string())
         print("Email sent!")
     except Exception as err:
         print("Could not send e-mail.")

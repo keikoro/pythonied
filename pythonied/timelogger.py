@@ -4,7 +4,7 @@
 # Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
 
 
-import timelogger_config as tlconf
+import config as conf
 import logging
 import time
 from os.path import expanduser
@@ -16,12 +16,12 @@ rn = time.strftime("%Y-%m-%d %H:%M")
 home = expanduser("~")
 
 try:
-    this_file = open(join(tlconf.user_dir, tlconf.log_file), 'a')
+    this_file = open(join(conf.user_dir, conf.log_file), 'a')
     this_file.write("logged: " + rn + " (home: " + home + ")\n")
 except Exception as err:
     # create error log in directory containing the script
-    logging.basicConfig(filename=join(path[0],tlconf.error_log), level=logging.DEBUG,
-                    format=tlconf.error_format)
+    logging.basicConfig(filename=join(path[0],conf.error_log), level=logging.DEBUG,
+                    format=conf.error_format)
     logger = logging.getLogger(__name__)
     subprocess.call('osascript -e "display notification '
                     '\\\"$(date)\n' + str(err) + '\\\" '
