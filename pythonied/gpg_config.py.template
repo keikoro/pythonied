@@ -4,5 +4,5 @@ from os.path import expanduser, join
 GPGDIR = join(expanduser('~'), '.gnupg')
 
 # key generation algorithm and key length
-GPGTYPE = "RSA"
+GPGTYPE = 'RSA'
 GPGKEYLENGTH = 4096

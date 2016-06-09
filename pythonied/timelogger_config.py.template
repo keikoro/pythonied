@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 
 # full path to directory where log should be saved
-user_dir = ""
+user_dir = ''
 
-# name of log file
-log_file = "logger.txt"
+# log files
+log_file = 'logger.txt'
+error_log = 'error.log'
+
+# error logging format
+error_format = '%(asctime)s %(levelname)s %(name)s %(message)s'
