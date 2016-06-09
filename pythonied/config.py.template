@@ -1,0 +1,54 @@
+#! /usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from os.path import expanduser, join  # gpgcreate.py
+
+
+# ----- ----- filerename.py
+# list of directories in which to search for files to be renamed
+DIRS = []
+# file types to look for
+FTYPES = []
+
+
+# ----- ----- gpgcreate.py
+# set the home directory to ~/.gnupg
+GPGDIR = join(expanduser('~'), '.gnupg')
+# key generation algorithm and key length
+GPGTYPE = 'RSA'
+GPGKEYLENGTH = 4096
+
+
+# ----- ----- sendmail.py
+# Message data
+# MSG: path to message text to be sent via e-mail;
+# the path is relative to the directory containing the script
+# TTYPE: use text type 'plain' or 'html'
+MSG = 'sendmail_message.txt'
+TTYPE = 'plain'
+
+# SMTP data
+# use STARTTLS or SSL for SEC variable (encryption type)
+# PASS and RECIPIENT are optional: if not used, the user
+# is prompted for the password and/or the recipient's e-mail address
+SERVER = ''
+USER = ''
+# PASS = ''
+RECIPIENT = ''
+SEC = ''
+PORT = 465
+
+# SEND/RECEIVE
+SENDER = USER
+
+
+# ----- ----- timelogger.py
+# full path to directory where log should be saved
+user_dir = ''
+
+# log files
+log_file = 'logger.txt'
+error_log = 'error.log'
+
+# error logging format
+error_format = '%(asctime)s %(levelname)s %(name)s %(message)s'
