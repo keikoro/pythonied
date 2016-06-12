@@ -1,13 +1,15 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
+# Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
+#
 # Script for
 # - creating a local directory for storing/managing GPG keys
-# - creating new GPG keys (using a name and e-mail address)
+# - creating new GPG keys (using a provided name and e-mail address)
 #
-# Depends on: gpg_conf.py
-# where variables for the directory path, the encryption algorithm
-# and the key strenght are stored.
+# Depends on: config.py
+# (variables for dir path, encryption algorithm, key strength)
+
 
 import config as conf
 # using python-gnupg
@@ -101,7 +103,7 @@ def main():
 
     # HANDLE USER INPUT
     # user can list all available keys on the system
-    # and create new keys using the type & key length specified in gpg_conf
+    # and create new keys using the type & key length specified in config.py
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawTextHelpFormatter,
         description="Sign e-mail messages using GnuPG.",

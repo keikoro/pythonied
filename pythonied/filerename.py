@@ -3,7 +3,10 @@
 #
 # Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
 #
-# Rename video and audio files.
+# Find files by file type
+#
+# Depends on: config.py
+# (variables for directories and file types)
 
 
 import config as conf

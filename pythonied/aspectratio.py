@@ -3,9 +3,8 @@
 #
 # A program to (re)calculate an image's dimensions
 # when one of its sides is changed in size.
-# 
+#
 # Copyright (c) 2015 K Kollmann <code∆k.kollmann·moe>
-
 
 # TODO make sure entered values are numbers (floats)
 
@@ -26,7 +25,7 @@ def newdimensions():
     """ calculate new width or height depending on which
         new dimension was provided by the user """
 
-    # print out warning if user provided no values  
+    # print out warning if user provided no values
     if w == "" and h == "":
         print("You didn't provide any new values! Please try again.")
     elif w == "":
