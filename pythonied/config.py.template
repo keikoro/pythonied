@@ -43,12 +43,13 @@ SENDER = USER
 
 
 # ----- ----- timelogger.py
-# full path to directory where log should be saved
+# full path to directory where the log file should be saved
+# (the error log is saved in the dir containing the script)
 user_dir = ''
 
-# log files
+# log file names
 log_file = 'logger.txt'
-error_log = 'error.log'
+error_log = 'timelogger_err.log'
 
 # error logging format
 error_format = '%(asctime)s %(levelname)s %(name)s %(message)s'
