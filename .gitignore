@@ -4,6 +4,8 @@
 # Python
 **__pycache__**
 **.pyc
+**.egg-info
+**.egg
 
 # PyCharm
 .idea/
@@ -11,10 +13,10 @@ __pycache__/
 
 # Files - general
 **.log**
+**.txt**
+**.cache**
 **config**
 !**template**
-**.txt**
 **test**
-
-# Files – this project
-!sendmail_msg.txt
+**foo**
+**dist**
