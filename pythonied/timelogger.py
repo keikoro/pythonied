@@ -25,8 +25,9 @@ try:
     this_file.write("logged: " + rn + " (home: " + home + ")\n")
 except Exception as err:
     # create error log in directory containing the script
-    logging.basicConfig(filename=join(path[0],conf.error_log), level=logging.DEBUG,
-                    format=conf.error_format)
+    logging.basicConfig(filename=join(path[0], conf.error_log),
+                        level=logging.DEBUG,
+                        format=conf.error_format)
     logger = logging.getLogger(__name__)
     subprocess.call('osascript -e "display notification '
                     '\\\"$(date)\n' + str(err) + '\\\" '

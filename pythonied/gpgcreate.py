@@ -116,7 +116,7 @@ def main():
                              "of {}. You will have to provide a name "
                              "and e-mail\n"
                              "address for which this key should be created."
-                                .format(alg, keylength))
+                        .format(alg, keylength))
     parser.add_argument('-l', '--list', action='store_true',
                         help="list all known GPG keys.")
     args = parser.parse_args()
