@@ -36,5 +36,5 @@ setup(
     cmdclass={
         'clean': cleanup
     },
-    requires=['python-gnupg']
+    install_requires=['python-gnupg']
 )
