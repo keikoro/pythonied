@@ -15,9 +15,9 @@ import config as conf
 # using python-gnupg
 # https://pypi.python.org/pypi/python-gnupg
 # https://pythonhosted.org/python-gnupg/
+import gnupg
 from os.path import exists
 from os import access, W_OK, X_OK, makedirs
-import gnupg
 import argparse
 
 
@@ -95,9 +95,9 @@ def main():
     Main function.
     """
     # ---VARS---
-    gpgdir = conf.GPGDIR
-    alg = conf.GPGTYPE
-    keylength = conf.GPGKEYLENGTH
+    gpgdir = conf.GPG_DIR
+    alg = conf.GPG_TYPE
+    keylength = conf.GPG_KEYLENGTH
     keylist = False
     new = False
 
