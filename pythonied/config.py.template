@@ -19,6 +19,11 @@ GPG_TYPE = 'RSA'
 GPG_KEYLENGTH = 4096
 
 
+# ----- ----- searchdict.py
+DICTS = []
+WORDS = []
+
+
 # ----- ----- sendmail.py
 # Message data
 # MSG: path to message text to be sent via e-mail;
