@@ -1,22 +1,24 @@
-# Mac
+# ----- Mac
 .DS_Store
 
-# Python
+# ----- Python
 **__pycache__**
 **.pyc
 **.egg-info
 **.egg
 
-# PyCharm
+# ----- PyCharm
 .idea/
 __pycache__/
 
-# Files - general
+# ----- Files general
 **.log**
 **.txt**
 **.cache**
 **config**
-!**template**
 **test**
 **foo**
 **dist**
+
+# ----- Allow
+!**template**
