@@ -13,10 +13,10 @@ FTYPES = []
 
 # ----- ----- gpgcreate.py
 # set the home directory to ~/.gnupg
-GPGDIR = join(expanduser('~'), '.gnupg')
+GPG_DIR = join(expanduser('~'), '.gnupg')
 # key generation algorithm and key length
-GPGTYPE = 'RSA'
-GPGKEYLENGTH = 4096
+GPG_TYPE = 'RSA'
+GPG_KEYLENGTH = 4096
 
 
 # ----- ----- sendmail.py
