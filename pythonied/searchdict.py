@@ -25,6 +25,8 @@ def main():
     words = conf.WORDS
     matches = {}
     patterns = []
+    this_dir = dirname(realpath(sys.argv[0]))
+    ext_files = join(dirname(this_dir), 'etc')
 
     if dicts is not None and words is not None:
         # create a pattern (object) based on each word
@@ -35,8 +37,9 @@ def main():
             patterns.append(p_obj)
 
         for d in dicts:
+            dict_loc =  join(ext_files, d)
             print("Searching dictionary {}".format(d))
-            with open(d, mode='r') as file:
+            with open(dict_loc, mode='r') as file:
                 # iterate over all lines, stripping newlines
                 for line in file.read().splitlines():
                     # ignore comments in dictionary files
@@ -50,7 +53,6 @@ def main():
             file.close()
 
         # save output files in /var/ directory
-        this_dir = dirname(realpath(sys.argv[0]))
         output_dir = join(dirname(this_dir), 'var')
 
         if not isdir(output_dir):
