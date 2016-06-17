@@ -17,6 +17,96 @@ import re
 import argparse
 
 
+def save_matches(output_dir, word, matches):
+    """
+    Save found matches into text files.
+
+    :param output_dir: directory to save files in
+    :param word: the word which was searched for
+    :param matches: a dictionary of matches
+    """
+    # file name pattern: results_WORD.txt
+    filename = join(output_dir, 'results_' + word + '.txt')
+    file = open(filename, 'w')
+    # create headline from word
+    file.write(word + '\n' + '-' * len(word) + '\n')
+    # print no. of matches
+    print("Search for '{}' finished: {} "
+          "matches!".format(word, len(matches)))
+
+    # write alphabetically sorted matches into results file
+    for key, value in sorted(matches.items()):
+        file.write(key)
+        if value:
+            file.write('\t[' + value + ']')
+        file.write('\n')
+        # debug
+        # print(key,end='')
+        # if value:
+        #     print('\t[' + value + ']', end='')
+        # print()
+
+    file.close()
+
+
+def search_single_words(dictionary, words, patterns, matches):
+    """
+    Search for words or words parts in a dictionary file.
+    Search the file line by line, looking for particular patterns.
+
+    :param dictionary: path to the dictionary file to search in
+    :param words: list of words/word parts to search for
+    :param patterns: patterns to search for
+    :param matches: dictionary of dictionaries to save matches in
+    :return: dictionary of dictionaries of matches
+    """
+    with open(dictionary, mode='r') as file:
+        for line in file.read().splitlines():
+            # ignore comments in dictionary files
+            if not line.startswith("#"):
+                for w, p in zip(words, patterns):
+                    # match result is a list
+                    this_match = re.findall(p[0], line)
+                    this_match_full = re.findall(p[1], line)
+                    # put all matches for a word
+                    # into a dictionary named after the word
+                    if this_match:
+                        # initial creation of the dict
+                        if w not in matches:
+                            matches[w] = {}
+                        # enter keys and values
+                        for m, mf in zip(this_match, this_match_full):
+                            # initial creation of dict entries
+                            matches[w][m] = ''
+                            # + add full matches if they differ
+                            if m != mf:
+                                if not matches[w][m]:
+                                    matches[w][m] = mf
+
+    file.close()
+    return matches
+
+
+def create_patterns(words, patterns):
+    """
+    Create lists of pattern objects
+    based on words/word parts to search for.
+
+    :param words: words to search for
+    :param patterns: a list to save all search patterns in
+    :return: list of search patterns
+    """
+    # create a pattern (object) based on each word
+    for w in words:
+        p = '[\w]*{}[\w]*'.format(w)
+        pfull = '[^;]*{}[^;]*'.format(w)
+        p_obj = re.compile(p, flags=re.IGNORECASE)
+        pfull_obj = re.compile(pfull, flags=re.IGNORECASE)
+        patterns.append([p_obj, pfull_obj])
+
+    return patterns
+
+
 def main():
     """
     Main function.
@@ -27,7 +117,7 @@ def main():
     matches = {}
     patterns = []
     this_dir = dirname(realpath(sys.argv[0]))  # cwd
-    ext_files = join(dirname(this_dir), 'etc')  # dir for input files
+    input_dir = join(dirname(this_dir), 'etc')  # dir for input files
 
     # HANDLE USER INPUT
     # users can input words or word parts to search for manually
@@ -45,42 +135,15 @@ def main():
 
     # only continue program if dict(s) and word(s) were provided
     if dicts is not None and len(words) and words[0]:
-        # create a pattern (object) based on each word
-        for w in words:
-            p = '[\w]*{}[\w]*'.format(w)
-            pfull = '[^;]*{}[^;]*'.format(w)
-            p_obj = re.compile(p, flags=re.IGNORECASE)
-            pfull_obj = re.compile(pfull, flags=re.IGNORECASE)
-            patterns.append([p_obj, pfull_obj])
 
-        # check each line of the dict file for the words to look for
+        # create patterns to search for based on words
+        patterns = create_patterns(words, patterns)
+
+        # search dict files
         for d in dicts:
-            dict_loc = join(ext_files, d)
+            dict_loc = join(input_dir, d)
             print("Searching dictionary {}".format(d))
-            with open(dict_loc, mode='r') as file:
-                for line in file.read().splitlines():
-                    # ignore comments in dictionary files
-                    if not line.startswith("#"):
-                        for w, p in zip(words, patterns):
-                            # match result is a list
-                            this_match = re.findall(p[0], line)
-                            this_match_full = re.findall(p[1], line)
-                            # put all matches for a word
-                            # into a dictionary named after the word
-                            if this_match:
-                                # initial creation of the dict
-                                if w not in matches:
-                                    matches[w] = {}
-                                # enter keys and values
-                                for m, mf in zip(this_match, this_match_full):
-                                    # initial creation of dict entries
-                                    matches[w][m] = ''
-                                    # + add full matches if they differ
-                                    if m != mf:
-                                        if not matches[w][m]:
-                                            matches[w][m] = mf
-
-            file.close()
+            search_single_words(dict_loc, words, patterns, matches)
 
         # only create dir/files for results if there are matches
         if len(matches):
@@ -99,30 +162,10 @@ def main():
                     print(err)
                     exit(1)
 
-            # write results into files (one for each word)
-            for m, words in matches.items():
-                # file name pattern: results_WORD.txt
-                filename = join(output_dir, 'results_' + m + '.txt')
-                file = open(filename, 'w')
-                # create headline from word
-                file.write(m + '\n' + '-' * len(m) + '\n')
-                # print no. of matches
-                print("Search for '{}' finished: {} "
-                      "matches!".format(m, len(words)))
+            # write results into files (one file per word)
+            for word, matches in matches.items():
+                save_matches(output_dir, word, matches)
 
-                # write matches into results file
-                for key, value in sorted(words.items()):
-                    file.write(key)
-                    if value:
-                        file.write('\t[' + value + ']')
-                    file.write('\n')
-                    # debug
-                    # print(key,end='')
-                    # if value:
-                    #     print('\t[' + value + ']', end='')
-                    # print()
-
-                file.close()
         else:
             print("No matches.")
 
