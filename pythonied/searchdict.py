@@ -9,11 +9,12 @@
 # (variables for dictionary file(s) and words to search)
 
 
-import re
 import config as conf
 from os.path import dirname, realpath, join, isdir
 from os import makedirs
 import sys
+import re
+import argparse
 
 
 def main():
@@ -25,8 +26,22 @@ def main():
     words = conf.WORDS
     matches = {}
     patterns = []
-    this_dir = dirname(realpath(sys.argv[0]))
-    ext_files = join(dirname(this_dir), 'etc')
+    this_dir = dirname(realpath(sys.argv[0])) # cwd
+    ext_files = join(dirname(this_dir), 'etc') # dir for output files
+
+    # HANDLE USER INPUT
+    # users can input words or word parts to search for manually
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawTextHelpFormatter,
+        description="Search a dictionary for "
+                    "occurrences of (parts of) words.")
+    parser.add_argument('-w', '--words', nargs='+', metavar='WORD',
+                        help="The words or word parts you want to\n"
+                             "search the dictionary file(s) for.")
+    args = parser.parse_args()
+
+    if args.words:
+        words = args.words
 
     if dicts is not None and words is not None:
         # create a pattern (object) based on each word
@@ -37,7 +52,7 @@ def main():
             patterns.append(p_obj)
 
         for d in dicts:
-            dict_loc =  join(ext_files, d)
+            dict_loc = join(ext_files, d)
             print("Searching dictionary {}".format(d))
             with open(dict_loc, mode='r') as file:
                 # iterate over all lines, stripping newlines
@@ -58,17 +73,17 @@ def main():
         if not isdir(output_dir):
             try:
                 makedirs(output_dir)
+            # TODO narrow exception clause
             except Exception as err:
                 print("Couldn't create directory for saving files. Exiting.")
+                print(err)
                 exit(1)
 
         # write all results into a file based on the word
         for m, words in matches.items():
             result = open(join(output_dir, 'results_' + m + '.txt'), 'w')
             result.write('---\n' + m + '\n---\n')
-            # debug
-            # print(m)
-            # print('---')
+            print("Search for '{}' finished!".format(m))
             for w in words:
                 result.write(w + '\n')
                 # debug
