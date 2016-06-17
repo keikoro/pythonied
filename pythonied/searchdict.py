@@ -47,7 +47,6 @@ def main():
     if dicts is not None and len(words) and words[0]:
         # create a pattern (object) based on each word
         for w in words:
-            matches[w] = {}
             p = '[\w]*{}[\w]*'.format(w)
             p_obj = re.compile(p, flags=re.IGNORECASE)
             patterns.append(p_obj)
@@ -66,35 +65,46 @@ def main():
                             # put all matches for a word
                             # into the dictionary named after the word
                             if this_match:
-                                # create one dict entry per match
+                                # initial creation of the dict
+                                if w not in matches:
+                                    matches[w] = {}
+                                # enter keys into dict (keys have empty value)
                                 for m in this_match:
                                     matches[w][m] = ''
             file.close()
 
-        # save output files in /var/ directory
-        output_dir = join(dirname(this_dir), 'var')
+        # only create dir/files if there are matches
+        if len(matches):
 
-        # TODO only create dir & safe files if there are actual results
-        # create output directory if it does not exist yet
-        if not isdir(output_dir):
-            try:
-                makedirs(output_dir)
-            # TODO narrow exception clause
-            except Exception as err:
-                print("Couldn't create directory for saving files. Exiting.")
-                print(err)
-                exit(1)
+            # save output files in /var/ directory
+            output_dir = join(dirname(this_dir), 'var')
 
-        # write all results into files based on the words
-        # (pattern: results_WORD.txt)
-        for m, words in matches.items():
-            result = open(join(output_dir, 'results_' + m + '.txt'), 'w')
-            result.write(m + '\n' + '-'*len(m) + '\n')
-            print("Search for '{}' finished!".format(m))
-            for w in words:
-                result.write(w + '\n')
-                # debug
-                # print(w)
+            # create output directory if it does not exist yet
+            if not isdir(output_dir):
+                try:
+                    makedirs(output_dir)
+                # TODO narrow exception clause
+                except Exception as err:
+                    print("Couldn't create directory for "
+                          "saving files. Exiting.")
+                    print(err)
+                    exit(1)
+
+            # write all results into files based on the words
+            # (pattern: results_WORD.txt)
+            for m, words in matches.items():
+                result = open(join(output_dir, 'results_' + m + '.txt'), 'w')
+                result.write(m + '\n' + '-' * len(m) + '\n')
+                print("Search for '{}' finished: {} "
+                      "matches!".format(m, len(words)))
+
+                for w in words:
+                    result.write(w + '\n')
+                    # debug
+                    # print(w)
+
+        else:
+            print("No matches.")
 
     # print msg if dict/word files were not provided
     else:
