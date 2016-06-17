@@ -48,8 +48,10 @@ def main():
         # create a pattern (object) based on each word
         for w in words:
             p = '[\w]*{}[\w]*'.format(w)
+            pfull = '[^;]*{}[^;]*'.format(w)
             p_obj = re.compile(p, flags=re.IGNORECASE)
-            patterns.append(p_obj)
+            pfull_obj = re.compile(pfull, flags=re.IGNORECASE)
+            patterns.append([p_obj, pfull_obj])
 
         # check each line of the dict file for the words to look for
         for d in dicts:
@@ -61,19 +63,26 @@ def main():
                     if not line.startswith("#"):
                         for w, p in zip(words, patterns):
                             # match result is a list
-                            this_match = re.findall(p, line)
+                            this_match = re.findall(p[0], line)
+                            this_match_full = re.findall(p[1], line)
                             # put all matches for a word
-                            # into the dictionary named after the word
+                            # into a dictionary named after the word
                             if this_match:
                                 # initial creation of the dict
                                 if w not in matches:
                                     matches[w] = {}
-                                # enter keys into dict (keys have empty value)
-                                for m in this_match:
+                                # enter keys and values
+                                for m, mf in zip(this_match, this_match_full):
+                                    # initial creation of dict entries
                                     matches[w][m] = ''
+                                    # + add full matches if they differ
+                                    if m != mf:
+                                        if not matches[w][m]:
+                                            matches[w][m] = mf
+
             file.close()
 
-        # only create dir/files if there are matches
+        # only create dir/files for results if there are matches
         if len(matches):
 
             # save output files in /var/ directory
@@ -90,19 +99,30 @@ def main():
                     print(err)
                     exit(1)
 
-            # write all results into files based on the words
-            # (pattern: results_WORD.txt)
+            # write results into files (one for each word)
             for m, words in matches.items():
-                result = open(join(output_dir, 'results_' + m + '.txt'), 'w')
-                result.write(m + '\n' + '-' * len(m) + '\n')
+                # file name pattern: results_WORD.txt
+                filename = join(output_dir, 'results_' + m + '.txt')
+                file = open(filename, 'w')
+                # create headline from word
+                file.write(m + '\n' + '-' * len(m) + '\n')
+                # print no. of matches
                 print("Search for '{}' finished: {} "
                       "matches!".format(m, len(words)))
 
-                for w in words:
-                    result.write(w + '\n')
+                # write matches into results file
+                for key, value in sorted(words.items()):
+                    file.write(key)
+                    if value:
+                        file.write('\t[' + value + ']')
+                    file.write('\n')
                     # debug
-                    # print(w)
+                    # print(key,end='')
+                    # if value:
+                    #     print('\t[' + value + ']', end='')
+                    # print()
 
+                file.close()
         else:
             print("No matches.")
 
