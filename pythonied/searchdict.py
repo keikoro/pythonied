@@ -26,8 +26,8 @@ def main():
     words = conf.WORDS
     matches = {}
     patterns = []
-    this_dir = dirname(realpath(sys.argv[0])) # cwd
-    ext_files = join(dirname(this_dir), 'etc') # dir for output files
+    this_dir = dirname(realpath(sys.argv[0]))  # cwd
+    ext_files = join(dirname(this_dir), 'etc')  # dir for input files
 
     # HANDLE USER INPUT
     # users can input words or word parts to search for manually
@@ -43,7 +43,8 @@ def main():
     if args.words:
         words = args.words
 
-    if dicts is not None and words is not None:
+    # only continue program if dict(s) and word(s) were provided
+    if dicts is not None and len(words) and words[0]:
         # create a pattern (object) based on each word
         for w in words:
             matches[w] = {}
@@ -51,11 +52,11 @@ def main():
             p_obj = re.compile(p, flags=re.IGNORECASE)
             patterns.append(p_obj)
 
+        # check each line of the dict file for the words to look for
         for d in dicts:
             dict_loc = join(ext_files, d)
             print("Searching dictionary {}".format(d))
             with open(dict_loc, mode='r') as file:
-                # iterate over all lines, stripping newlines
                 for line in file.read().splitlines():
                     # ignore comments in dictionary files
                     if not line.startswith("#"):
@@ -70,6 +71,7 @@ def main():
         # save output files in /var/ directory
         output_dir = join(dirname(this_dir), 'var')
 
+        # create output directory if it does not exist yet
         if not isdir(output_dir):
             try:
                 makedirs(output_dir)
@@ -79,7 +81,8 @@ def main():
                 print(err)
                 exit(1)
 
-        # write all results into a file based on the word
+        # write all results into files based on the words
+        # (pattern: results_WORD.txt)
         for m, words in matches.items():
             result = open(join(output_dir, 'results_' + m + '.txt'), 'w')
             result.write('---\n' + m + '\n---\n')
@@ -88,6 +91,11 @@ def main():
                 result.write(w + '\n')
                 # debug
                 # print(w)
+
+    # print msg if dict/word files were not provided
+    else:
+        print("ATTN: You seem to not have provided any dictionary files\n"
+              "and/or words or word parts to search for. Please try again.")
 
 
 if __name__ == "__main__":
