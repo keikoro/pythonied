@@ -71,6 +71,7 @@ def main():
         # save output files in /var/ directory
         output_dir = join(dirname(this_dir), 'var')
 
+        # TODO only create dir & safe files if there are actual results
         # create output directory if it does not exist yet
         if not isdir(output_dir):
             try:
