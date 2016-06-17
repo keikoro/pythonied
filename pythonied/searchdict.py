@@ -61,11 +61,14 @@ def main():
                     # ignore comments in dictionary files
                     if not line.startswith("#"):
                         for w, p in zip(words, patterns):
-                            this_match = p.search(line)
-                            # put all matches for a word into
-                            # the dictionary named after the word
+                            # match result is a list
+                            this_match = re.findall(p, line)
+                            # put all matches for a word
+                            # into the dictionary named after the word
                             if this_match:
-                                matches[w][this_match.group(0)] = ''
+                                # create one dict entry per match
+                                for m in this_match:
+                                    matches[w][m] = ''
             file.close()
 
         # save output files in /var/ directory
@@ -86,7 +89,7 @@ def main():
         # (pattern: results_WORD.txt)
         for m, words in matches.items():
             result = open(join(output_dir, 'results_' + m + '.txt'), 'w')
-            result.write('---\n' + m + '\n---\n')
+            result.write(m + '\n' + '-'*len(m) + '\n')
             print("Search for '{}' finished!".format(m))
             for w in words:
                 result.write(w + '\n')
