@@ -17,6 +17,25 @@ import re
 import argparse
 
 
+def intersect_matches(matches):
+    """
+    Intersect all existing result sets for words.
+
+    :param matches: dictionary of dictionaries of matches
+    :return:
+    """
+    intersect = {}
+    word_list = []
+    results_list = []
+    for word, results in matches.items():
+        word_list.append(word)
+        results_list.append(results)
+
+    # debug
+    print(word_list)
+    print(results_list)
+
+
 def save_matches(output_dir, word, matches):
     """
     Save found matches into text files.
@@ -162,9 +181,15 @@ def main():
                     print(err)
                     exit(1)
 
+
             # write results into files (one file per word)
-            for word, matches in matches.items():
-                save_matches(output_dir, word, matches)
+            for word, results in matches.items():
+                # save_matches(output_dir, word, results)
+                pass
+
+            intersect_matches(matches)
+
+
 
         else:
             print("No matches.")
