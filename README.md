@@ -14,6 +14,20 @@ Python3 command line script to **calculate the missing dimension of an image** w
 
 Useful when you want to resize an image but don't want to consult fancy image editing software.
 
+
+### [gpgcreate](pythonied/gpgcreate.py)
+Set up a directory for GPG keys and **create new GPG keys**.
+
+Uses ```config.py```.
+
+
+
+### [sendmail](pythonied/sendmail.py)
+Program to **send an e-mail** message from an existing e-mail address to a recipient.
+
+Uses ```config.py```.
+
+
 ### [timelogger](pythonied/timelogger.py)
 Python3 script to **log the current time** and home directory of the logging user. 
 
