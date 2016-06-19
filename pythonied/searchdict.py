@@ -8,32 +8,83 @@
 # Depends on: config.py
 # (variables for dictionary file(s) and words to search)
 
-
 import config as conf
 from os.path import dirname, realpath, join, isdir
 from os import makedirs
 import sys
 import re
 import argparse
+from itertools import combinations
+from locale import setlocale, getlocale, strxfrm, LC_ALL
+from functools import cmp_to_key
+
+# strxfrm apparently broken for German UTF-8
+# -> umlauts get sorted after words starting with z
+setlocale(LC_ALL, 'de_AT.UTF-8')
+
+# debug
+# print(getlocale(LC_ALL))
 
 
-def intersect_matches(matches):
+def print_results(word, matches):
+    """
+    Print all matches found for a word to stdout.
+
+    :param word: a word that was looked for
+    :param matches: dictionary of matches for that word
+    """
+    # create 'headline'
+    sep = '-' * len(word)
+    print(sep)
+    print(str(word))
+    print(sep)
+
+    # use lambda for sorting the matches lowercased
+    # (otherwise matches starting with a capital letter get sorted first)
+    # strxfrm for umlaut sorting broken in several German locals
+    for word, suppl in sorted(matches.items(),
+                              key=lambda w: strxfrm(w[0].lower())):
+        print(word, end=' ')
+    print()
+
+
+def create_dir(output_dir):
+    try:
+        makedirs(output_dir)
+    # TODO narrow exception clause
+    except Exception as err:
+        print("Couldn't create directory for "
+              "saving files. Exiting.")
+        print(err)
+        exit(1)
+
+
+def intersect_matches(match_dict):
     """
     Intersect all existing result sets for words.
 
-    :param matches: dictionary of dictionaries of matches
+    :param match_dict: dictionary of dictionaries of matches
     :return:
     """
-    intersect = {}
-    word_list = []
-    results_list = []
-    for word, results in matches.items():
-        word_list.append(word)
-        results_list.append(results)
+    shared = {}
 
+    matches = dict(match_dict.items())
+    words = list(sorted(match_dict.keys()))
+
+    for i in range(2, len(words) + 1):
+        for elems in combinations(words, i):
+            # list of sets of matches
+            match_sets = [set(list(matches[elems[j]])) for j in
+                          range(len(elems))]
+            # intersect available match sets to find common words
+            # and add them to the 'shared' dictionary
+            shared_matches = set.intersection(*match_sets)
+            if shared_matches:
+                shared[elems] = shared_matches
     # debug
-    print(word_list)
-    print(results_list)
+    # print(shared)
+
+    return shared
 
 
 def save_matches(output_dir, word, matches):
@@ -44,26 +95,28 @@ def save_matches(output_dir, word, matches):
     :param word: the word which was searched for
     :param matches: a dictionary of matches
     """
-    # file name pattern: results_WORD.txt
+    # file name pattern results_WORD.txt
     filename = join(output_dir, 'results_' + word + '.txt')
-    file = open(filename, 'w')
-    # create headline from word
-    file.write(word + '\n' + '-' * len(word) + '\n')
-    # print no. of matches
-    print("Search for '{}' finished: {} "
-          "matches!".format(word, len(matches)))
 
-    # write alphabetically sorted matches into results file
-    for key, value in sorted(matches.items()):
-        file.write(key)
-        if value:
-            file.write('\t[' + value + ']')
+    # create 'headline'
+    sep = '-' * len(word)
+    file = open(filename, 'w')
+    file.write(sep)
+
+    # use lambda for sorting the matches lowercased
+    # (otherwise matches starting with a capital letter get sorted first)
+    # strxfrm for umlaut sorting broken in several German locals
+    for word, suppl in sorted(matches.items(),
+                              key=lambda w: strxfrm(w[0].lower())):
+        file.write(word)
+        if suppl:
+            file.write('\t[' + suppl + ']')
         file.write('\n')
         # debug
-        # print(key,end='')
+        # print(word, end=' ')
         # if value:
         #     print('\t[' + value + ']', end='')
-        # print()
+    # print()
 
     file.close()
 
@@ -135,6 +188,8 @@ def main():
     words = conf.WORDS
     matches = {}
     patterns = []
+    intersect = None
+    save = None
     this_dir = dirname(realpath(sys.argv[0]))  # cwd
     input_dir = join(dirname(this_dir), 'etc')  # dir for input files
 
@@ -147,10 +202,25 @@ def main():
     parser.add_argument('-w', '--words', nargs='+', metavar='WORD',
                         help="The words or word parts you want to\n"
                              "search the dictionary file(s) for.")
+    parser.add_argument('-i', '--intersect', action='store_true',
+                        help="Intersect the words you are looking for\n"
+                             "to find only results that match them all.")
+    parser.add_argument('-s', '--save', action='store_true',
+                        help="Save all results to text files,\n"
+                             "otherwise only display the results.")
     args = parser.parse_args()
 
     if args.words:
         words = args.words
+    if args.intersect:
+        intersect = 1
+    if args.save:
+        save = 1
+        # save output files in /var/ directory
+        output_dir = join(dirname(this_dir), 'var')
+        # create output directory if it does not exist yet
+        if not isdir(output_dir):
+            create_dir(output_dir)
 
     # only continue program if dict(s) and word(s) were provided
     if dicts is not None and len(words) and words[0]:
@@ -164,32 +234,25 @@ def main():
             print("Searching dictionary {}".format(d))
             search_single_words(dict_loc, words, patterns, matches)
 
-        # only create dir/files for results if there are matches
+        # print results
+        # or create dir/files for results if there are matches + save flag
         if len(matches):
-
-            # save output files in /var/ directory
-            output_dir = join(dirname(this_dir), 'var')
-
-            # create output directory if it does not exist yet
-            if not isdir(output_dir):
-                try:
-                    makedirs(output_dir)
-                # TODO narrow exception clause
-                except Exception as err:
-                    print("Couldn't create directory for "
-                          "saving files. Exiting.")
-                    print(err)
-                    exit(1)
-
-
-            # write results into files (one file per word)
+            # function call per word
             for word, results in matches.items():
-                # save_matches(output_dir, word, results)
-                pass
+                if save:
+                    save_matches(output_dir, word, results)
+                    print("Search for '{}' saved: {} "
+                          "matches!".format(word, len(results)))
+                else:
+                    print_results(word, results)
 
-            intersect_matches(matches)
-
-
+            # intersect matches to find words that match sets have in common
+            if intersect:
+                shared_matches = intersect_matches(matches)
+                if save:
+                    print(shared_matches)
+                else:
+                    print(shared_matches)
 
         else:
             print("No matches.")
