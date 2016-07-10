@@ -21,20 +21,27 @@ class cleanup(Command):
 
 setup(
     name='pythonied',
+    description='Miscellaneous Python scripts (some short and simple)',
     version='1.0',
     author='K Kollmann',
     author_email='code∆k.kollmann·moe',
+    url='https://github.com/keikoro/pythonied',
     license='',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
     ],
-    keywords=['misc.', 'scripts'],
+    keywords=[
+        'misc',
+        'scripts'
+    ],
+    install_requires=[
+        'python-gnupg'
+    ],
     cmdclass={
         'clean': cleanup
-    },
-    install_requires=['python-gnupg']
+    }
 )
