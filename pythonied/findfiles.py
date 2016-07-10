@@ -1,13 +1,13 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
-#
-# Find files by file type
-#
-# Depends on: config.py
-# (variables for directories and file types)
+"""
+Find files by file type
 
+Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
+
+Depends on: config.py
+(variables for directories and file types)
+"""
 
 import config as conf
 import os
