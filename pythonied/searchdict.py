@@ -17,10 +17,9 @@ import argparse
 from itertools import combinations
 from locale import setlocale, getlocale, strxfrm, LC_ALL
 
-# strxfrm apparently broken for German UTF-8 on OS X
-# -> umlauts get sorted after words starting with z
+# strxfrm apparently broken for several German locales on OS X, like UTF-8
+# -> umlauts currently get sorted after words starting with z!
 setlocale(LC_ALL, 'de_AT.UTF-8')
-
 
 # debug
 # print(getlocale(LC_ALL))
@@ -47,7 +46,8 @@ def print_results(word, match_dict):
 
     # use lambda for sorting the matches lowercased
     # (otherwise matches starting with a capital letter get sorted first)
-    # strxfrm for umlaut sorting broken in several German locals
+    # ATTN not working!
+    # strxfrm for umlaut sorting broken in several German locales on OS X
     for word, suppl in sorted(matches.items(),
                               key=lambda w: strxfrm(w[0].lower())):
         print(word, end=' ')
@@ -104,7 +104,8 @@ def save_single(output_dir, word, match_dict):
 
     # use lambda for sorting the matches lowercased
     # (otherwise matches starting with a capital letter get sorted first)
-    # strxfrm for umlaut sorting broken in some German locales on OS X?
+    # ATTN not working!
+    # strxfrm for umlaut sorting broken in several German locales on OS X?
     for word, suppl in sorted(matches.items(),
                               key=lambda w: (
                                       strxfrm(w[0].lower()),
@@ -137,7 +138,8 @@ def save_intersecting(output_dir, words, match_dict):
 
     # use lambda for sorting the matches lowercased
     # (otherwise matches starting with a capital letter get sorted first)
-    # strxfrm for umlaut sorting broken in some German locales on OS X?
+    # ATTN not working!
+    # strxfrm for umlaut sorting broken in several German locales on OS X?
     matches = dict(match_dict)
     for combo, results in sorted(matches.items(),
                                  key=lambda w: (
