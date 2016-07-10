@@ -1,12 +1,13 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
-#
-# Log the current system time to a file.
-#
-# Depends on: config.py
-# (variables for directories and file types)
+"""
+Log the current system time to a file.
+
+Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
+
+Depends on: config.py
+(variables for directories and file types)
+"""
 
 
 import config as conf
