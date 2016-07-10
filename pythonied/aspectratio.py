@@ -1,10 +1,13 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# A program to (re)calculate an image's dimensions
-# when one of its sides is changed in size.
-#
-# Copyright (c) 2015 K Kollmann <code∆k.kollmann·moe>
+"""
+aspectratio
+
+A program to (re)calculate an image's dimensions
+when one of its sides gets changed in size.
+
+Copyright (c) 2015 K Kollmann <code∆k.kollmann·moe>
+"""
 
 # TODO make sure entered values are numbers (floats)
 
