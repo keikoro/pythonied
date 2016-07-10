@@ -1,12 +1,14 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
-#
-# Search a dictionary for occurrences of (parts of) words.
-#
-# Depends on: config.py
-# (variables for dictionary file(s) and words to search)
+"""
+Search a dictionary for occurrences of (parts of) words.
+
+Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
+
+Depends on: config.py
+(variables for dictionary file(s) and words to search)
+"""
+
 
 import config as conf
 from os.path import dirname, realpath, join, isdir
