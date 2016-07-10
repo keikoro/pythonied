@@ -1,14 +1,14 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
-#
-# Script for
-# - creating a local directory for storing/managing GPG keys
-# - creating new GPG keys (using a provided name and e-mail address)
-#
-# Depends on: config.py
-# (variables for dir path, encryption algorithm, key strength)
+"""
+Script for creating new GPG keys
+and a local directory in which to store them.
+
+Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
+
+Depends on: config.py
+(variables for dir path, encryption algorithm, key strength)
+"""
 
 
 import config as conf
@@ -32,7 +32,7 @@ def dir_checkmake(thisdir, permission=0o755):
         try:
             makedirs(thisdir, mode=permission)
             print("Directory {} created, continuing program.".format(thisdir))
-        except PermissionError as err:
+        except PermissionError:
             print("Directory {} does not exit "
                   "and cannot be created either.\n"
                   "Make sure the necessary permissions are set "
@@ -65,7 +65,7 @@ def gnupg_check(thisdir):
         # debug
         print("GPG binary used: {}".format(gpg.gpgbinary))
         return gpg
-    except OSError as err:
+    except OSError:
         try:
             gpg = gnupg.GPG(gnupghome=thisdir,
                             gpgbinary=binary1,
@@ -73,7 +73,7 @@ def gnupg_check(thisdir):
             # debug
             print("GPG binary used: {}".format(gpg.gpgbinary))
             return gpg
-        except OSError as err:
+        except OSError:
             try:
                 gpg = gnupg.GPG(gnupghome=thisdir,
                                 gpgbinary=binary2,
