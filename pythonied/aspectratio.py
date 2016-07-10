@@ -9,54 +9,66 @@ when one of its sides gets changed in size.
 Copyright (c) 2015 K Kollmann <code∆k.kollmann·moe>
 """
 
+
 # TODO make sure entered values are numbers (floats)
 
 
-def newdimensions():
-    """ Calculate new width / height of an image based on
-        its current width and height, and one new value
-        (keeping intact its aspect ratio). """
+def newdimensions(width, height):
+    """
+    Calculate new width or height of an image.
+
+    The new dimensions are based on one of the new
+    values being provided by the user. The image's
+    aspect ratio is kept intact.
+    """
+    w = None
+    h = None
     # prompt for desired new width / height
     w = input("New w: ")
     h = input("New h: ")
+
     # convert str input to floats
     if w:
         w = float(w)
     if h:
         h = float(h)
 
-    """ calculate new width or height depending on which
-        new dimension was provided by the user """
-
     # print out warning if user provided no values
-    if w == "" and h == "":
+    if w == '' and h == '':
         print("You didn't provide any new values! Please try again.")
-    elif w == "":
+    elif w == '':
         w = (h * width) / height
         print("The new width of your image is {}, rounded: {}".format(
             round(w, 2), round(w)))
-    elif h == "":
+    elif h == '':
         h = (w * height) / width
         print("The new height of your image is {}, rounded: {}".format(
             round(h, 2), round(h)))
     # print out warning if user provided both new width and height
     else:
         print("You provided two new values instead of one! Please try again.")
-        w = ""
-        h = ""
     return w, h
 
 
-# prompt for current width and height of image
-print("Please enter the dimensions of your image:")
-width = float(input("w: "))
-height = float(input("h: "))
+def main():
+    """
+    Main function.
+    """
 
-print("Leave one of the following values blank (simply press enter)")
+    # prompt for current width and height of image
+    print("Please enter the dimensions of your image:")
+    width = float(input("w: "))
+    height = float(input("h: "))
 
-# run the function once
-new_w, new_h = newdimensions()
+    print("Leave one of the following values blank (simply press enter)")
 
-# run the function again for as long as only one new value was entered
-while new_w == "" and new_h == "":
-    new_w, new_h = newdimensions()
+    # run the function once
+    new_w, new_h = newdimensions(width, height)
+
+    # run the function until only one new value was entered
+    while (new_w == None or new_w == '') and (new_h == None or new_h == ''):
+        new_w, new_h = newdimensions(width, height)
+
+
+if __name__ == "__main__":
+    main()
