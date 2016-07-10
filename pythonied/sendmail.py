@@ -1,15 +1,16 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
-#
-# Script for sending e-mail.
-#
-# Sends an e-mail message to a specified recipient
-# from a specified e-mail address using SMTP login data.
-#
-# Depends on: config.py
-# (variables for server, sender, recipient, message to be sent)
+"""
+Script for sending e-mail.
+
+Copyright (c) 2016 K Kollmann <code∆k.kollmann·moe>
+
+Sends an e-mail message to a specified recipient
+from a specified e-mail address using SMTP login data.
+
+Depends on: config.py
+(variables for server, sender, recipient, message to be sent)
+"""
 
 
 import config as conf
