@@ -1,6 +1,19 @@
 # ----- Mac
 .DS_Store
 
+# ----- env, config vars
+**.env**
+**config**
+**var/**
+
+# ----- Files general
+**.log**
+**.txt**
+**cache**
+**foo**
+**dist**
+**temp**
+
 # ----- Python
 **__pycache__**
 **.pyc
@@ -11,15 +24,7 @@
 .idea/
 __pycache__/
 
-# ----- Files general
-**.log**
-**.txt**
-**.cache**
-**config**
-**test**
-**foo**
-**dist**
-var/
-
 # ----- Allow
 !**template**
+!**requirements.txt**
+!**runtime.txt**
