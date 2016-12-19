@@ -4,8 +4,8 @@ from logging.config import dictConfig
 from os import getenv
 
 
-def setup_logging(fpath='logconfig.json',
-                  env_lvl='WARNING',
+def setup_logging(fpath='logconf.json',
+                  env_lvl='LOG_LEVEL',
                   env_conf_file='LOG_CONF'):
     """
     Set up logging.
@@ -18,7 +18,7 @@ def setup_logging(fpath='logconfig.json',
     level = getenv(env_lvl, None)
     conf_file = getenv(env_conf_file, None)
     if not level:
-        level = 'WARNING'
+        level = env_lvl
     if conf_file:
         fpath = conf_file
     try:
