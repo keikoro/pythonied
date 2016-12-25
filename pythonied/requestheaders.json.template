@@ -1,0 +1,55 @@
+{
+  "mozilla": "Mozilla/5.0",
+  "platforms" :{
+    "Windows": {
+      "versions": [
+        "Windows NT 10.0; Win64; x64"
+      ],
+      "browsers": [
+        "Firefox",
+        "Chrome-Safari"
+      ]
+    },
+    "Darwin": {
+      "versions": [
+        "Macintosh; Intel Mac OS X 10_11_6"
+      ],
+      "browsers": [
+        "Firefox",
+        "Chrome-Safari"
+      ]
+    },
+    "Linux": {
+      "versions": [
+        "X11; Linux x86_64"
+      ],
+      "browsers": [
+        "Firefox"
+      ]
+    }
+  },
+  "browsers": {
+    "Firefox": {
+      "versions": [
+        "Gecko/20100101"
+      ],
+      "appnames": [
+        "Firefox/47.0"
+      ],
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+    },
+    "Chrome-Safari": {
+      "versions": [
+        "AppleWebKit/601.6.17 (KHTML, like Gecko)"
+      ],
+      "appnames": [
+        "Chrome/52.0.2743.82 Safari/537.36"
+      ],
+      "accept": "application/xml,application/xhtml+xml,text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5"
+    }
+  },
+  "accept-encoding": "gzip,deflate",
+  "accept-lang": [
+    "en-US;q=0.8"
+  ]
+}
