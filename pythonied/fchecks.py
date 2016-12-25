@@ -14,6 +14,8 @@ from log import log
 from os import W_OK, access, makedirs
 from os.path import basename, dirname, exists, join
 
+from log import log
+
 
 def file_is(fpath, c=False, ftype='f', fname=None):
     """
@@ -90,13 +92,26 @@ def file_is(fpath, c=False, ftype='f', fname=None):
 
 def main():
     """Main function."""
-    # ---VARS---
 
-    test_path = 'test.txt'
-    file_is(test_path, c=False)
+    # ---USER INPUT---
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawTextHelpFormatter,
+        description="")
+    parser.add_argument('-f', '--file',
+                        help="File to look for")
+    args = parser.parse_args()
+
+    if args.file:
+        fname = args.file
+    else:
+        log.error("No file provided!")
+        fname = input("Path to file: ")
+
+    file_is(fname, c=False)
 
 
 if __name__ == "__main__":
     # imports only relevant for main
+    import argparse
 
     main()
