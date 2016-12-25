@@ -3,7 +3,7 @@
 
 # ----- env, config vars
 **.env**
-**config**
+**conf**
 **var/**
 
 # ----- Files general
