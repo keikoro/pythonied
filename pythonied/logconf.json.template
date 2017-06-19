@@ -4,13 +4,13 @@
     "loggers": {
         "": {
             "handlers": ["regular"],
-            "level": "INFO",
+            "level": "DEBUG",
             "propagate": true
         }
     },
     "handlers": {
         "regular": {
-            "level": "WARNING",
+            "level": "INFO",
             "class": "logging.StreamHandler",
             "formatter": "simple",
             "stream": "ext://sys.stdout"
